@@ -32,38 +32,47 @@ class Person < ApplicationRecord
   end
 
   def father
-    father = []
+    fathers = []
     parents.each do |parent|
-      father << parent if parent.gender == 'male'
+      fathers << parent if parent.gender == 'male'
     end
-    father
+    fathers
   end
 
   
   def mother
-    mother = []
+    mothers = []
     parents.each do |parent|
-      mother << parent if parent.gender == 'female'
+      mothers << parent if parent.gender == 'female'
     end
-    mother
+    mothers
   end
 
   def husband
     people = Person.where(id: relationship_ids)
-    husband = []
+    husbands = []
     people.each do |person|
-      husband << person if person.gender == 'male'
+      husbands << person if person.gender == 'male'
     end
-    husband
+    husbands
   end
 
   def wife
     people = Person.where(id: relationship_ids)
-    wife = []
+    wifes = []
     people.each do |person|
-      wife << person if person.gender == 'female'
+      wifes << person if person.gender == 'female'
     end
-    wife
+    wifes
+  end
+
+  def add_partner(partner_id)
+    partner = Relationship.new(alpha_id: partner_id, beta_id: id, relationship_type: 'married')
+    if partner.save
+      partner
+    else
+      nil
+    end
   end
 
   def add_parent(parent_id)
