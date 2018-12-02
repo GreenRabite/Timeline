@@ -8,7 +8,7 @@
 #  birthday       :date
 #  deathday       :date
 #  family_tree_id :integer
-#  gender         :string
+#  gender         :string           not null
 #  profile_img    :string
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
