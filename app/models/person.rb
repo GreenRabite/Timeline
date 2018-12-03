@@ -96,6 +96,14 @@ class Person < ApplicationRecord
     Person.where(id: kids) - [self]
   end
 
+  # Need to Check
+  def cousins
+    cousin_ids = Relationship.where(relationship_type: 'parent', beta_id: 
+      Relationship.where(beta_id: id, relationship_type: 'parent').pluck(:alpha_id)
+    )
+    Person.where(id: cousin_ids)
+  end
+
   private
 
   def relationship_ids
