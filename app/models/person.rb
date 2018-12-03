@@ -7,16 +7,18 @@
 #  last_name      :string
 #  birthday       :date
 #  deathday       :date
-#  family_tree_id :integer
 #  gender         :string           not null
 #  profile_img    :string
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  middle_name    :string
+#  phone_number   :string
+#  email          :string
+#  family_tree_id :integer          not null, is an Array
 #
 
 class Person < ApplicationRecord
-  validates :first_name, :gender, presence: true
+  validates :first_name, :gender, :family_tree_id, presence: true
 
   # Associations
   # Family Tree - can be associated with other family trees

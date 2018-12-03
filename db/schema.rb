@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181201234027) do
+ActiveRecord::Schema.define(version: 20181203181536) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,13 +37,14 @@ ActiveRecord::Schema.define(version: 20181201234027) do
     t.string "last_name"
     t.date "birthday"
     t.date "deathday"
-    t.integer "family_tree_id"
     t.string "gender", null: false
     t.string "profile_img"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "middle_name"
-    t.index ["family_tree_id"], name: "index_people_on_family_tree_id"
+    t.string "phone_number"
+    t.string "email"
+    t.integer "family_tree_id", null: false, array: true
     t.index ["first_name"], name: "index_people_on_first_name"
     t.index ["last_name"], name: "index_people_on_last_name"
   end
