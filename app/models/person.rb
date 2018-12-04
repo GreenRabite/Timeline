@@ -96,12 +96,35 @@ class Person < ApplicationRecord
     Person.where(id: kids) - [self]
   end
 
-  # Need to Check
   def cousins
-    cousin_ids = Relationship.where(relationship_type: 'parent', beta_id: 
-      Relationship.where(beta_id: id, relationship_type: 'parent').pluck(:alpha_id)
-    )
-    Person.where(id: cousin_ids)
+    relatives = uncles + aunts
+    cousins = []
+    relatives.each do |relative|
+      cousins += relative.children
+    end
+    cousins
+  end
+
+  def uncles
+    uncles = []
+    parents.each do |parent|
+      uncles += parent.siblings.select {|relative| relative.gender == 'male'}
+    end
+    uncles
+  end
+
+  def aunts
+    aunts = []
+    parents.each do |parent|
+      aunts += parent.siblings.select {|relative| relative.gender == 'female'}
+    end
+    aunts
+  end
+
+  def grandparents
+    parent_ids = parents.pluck(:id)
+    grandparent_ids = Relationship.where(relationship_type: 'parent', beta_id: parent_ids).pluck(:alpha_id)
+    Person.where(id: grandparent_ids)
   end
 
   private
